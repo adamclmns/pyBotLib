@@ -1,0 +1,16 @@
+# Adam Clemons - 2015-10-12
+# github.com/adamclmns
+# Summary: 
+# 	Library for creating python-based control API's for simple Arduino Robots. 
+#	Initial Support for Servos on Arduino UNO (tested)
+#	Planned Support for Stepper Motors, LEDs, Analog input, and Generic Digital Output.
+# 	Initial Example Implementation for 4-servo meArm 0.4 with a few examples of using
+#	input devices like keyboard, mouse, and gamepad
+# 	Will eventually include configuration UI, Limit Testing (for servos, initially meArm) and interactive
+#	Planned interface for Raspberry Pi-based Robot controls
+#
+#	Initially supporting Python 2.7 on Windows and Linux (you're welcome to help with OSX)
+#	Planned port to Python 3.5 as suitable dependencies are discovered.
+
+
+ 
