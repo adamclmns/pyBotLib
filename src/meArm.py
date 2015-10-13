@@ -32,44 +32,83 @@ class meArm():
 		self.rot[1]-=delta;
 		self.set(self.rot)
 		
-	def fwd(self,delta):
+	def out2(self,delta):
 		self.hpos[1]+=delta
 		self.set(self.hpos)
 	
-	def back(self, delta):
+	def in2(self, delta):
 		self.hpos[1]-=delta
 		self.set(self.hpos)
 	
-	def up(self,delta):
+	def out1(self,delta):
 		self.vpos[1]+=delta
 		self.set(self.vpos)
-		
-	def down(self, delta):
+		time.sleep(.125)
+	
+	def in1(self, delta):
 		self.vpos[1]-=delta
 		self.set(self.vpos)
 	
 	def snap(self):
-		if self.clawOpen != True:
-			self.claw()
-		self.up(10)
-		self.fwd(10)
 		self.claw()
-		self.down(10)
-		self.back(10)
+		time.sleep(.15)
 		self.claw()
-		
+		time.sleep(.1)
+		self.claw()
+		time.sleep(.1)
+		self.claw()
+	
+	def forward(self, delta):
+	    steps=delta / 4
+	    for i in range(0,steps):
+	        self.out1(4)
+	        time.sleep(0.01)
+	        self.out2(4)
+	
+	def backward(self, delta):
+	    steps = delta / 4
+	    for i in range(0,steps):
+	        self.in1(4)
+	        time.sleep(0.01)
+	        self.in2(4)
+	
 	def grab(self):
 		if self.clawOpen != True:
-			self.claw()
-		self.down(15)
-		self.fwd(15)
+		    self.claw()
 		self.claw()
-		self.up(30)
-		self.back(20)
-		
-	def floor(self):
-		print("this will lower the arm all the way to the ground")
-		
+	
+	def lift(self,delta):
+	    steps = delta /4
+	    for i in range(0,steps):
+	        self.in2(4)
+	        time.sleep(0.01)
+	        self.out1(4)
+	        time.sleep(0.01)
+	
+	def lower(self, delta):
+	    steps = delta /4
+	    for i in range(0,steps):
+	        self.out2(4)
+	        time.sleep(0.01)
+	        self.in1(4)
+	        time.sleep(0.01)
+	        
+	def grotate(self, delta):
+	    steps = delta/4
+	    for i in range(0,steps):
+	        if delta > 0:
+	            self.rotateRight(4)
+	            time.sleep(0.01)
+	        elif delta < 0:
+	            self.rotateLeft(4)
+	            time.sleep(0.01)
+            
+	def Status(self):
+	    print("Rotation: "+str(self.rot[1]))
+	    print("servo1: "+str(self.hpos[1]))
+	    print("servo2: "+str(self.vpos[1]))
+	    print("Claw Open: "+str(self.clawOpen))
+	
 	def claw(self):
 		if self.clawOpen:
 			self.host.move(4,178)
@@ -77,4 +116,6 @@ class meArm():
 		else:
 			self.host.move(4,145)
 			self.clawOpen =True
-		
+	
+	def center(self):
+	    self.host.moveAll(90,90,90,90)	
