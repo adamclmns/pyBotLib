@@ -15,8 +15,10 @@ def speak(phrase):
     
 
 speak("initializing robot")
-
-me = meArm.meArm(meArm.windows())
+try:
+    me = meArm.meArm(meArm.windows())
+except:
+    me = meArm.meArm(meArm.linux())
 speak("Initialization complete")
 speak("Testing")
 me.rotateRight(80)
