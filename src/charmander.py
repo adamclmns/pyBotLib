@@ -6,20 +6,23 @@ try:
     engine=pyttsx.init()
 except:
     print("voice is unavailable")
+
 def speak(phrase):
     try:
-        engine.say(phrase)
-        engine.runAndWait()
+        print(phrase)
+        #engine.say(phrase)
+        #engine.runAndWait()
     except:
         print(phrase)
     
 
-speak("initializing robot")
+speak("initializing")
 try:
     me = meArm.meArm(meArm.windows())
 except:
     me = meArm.meArm(meArm.linux())
-speak("Initialization complete")
+
+
 speak("Testing")
 me.rotateRight(80)
 
@@ -49,6 +52,6 @@ me.claw()
 me.backward(35)
 me.rotateRight(80)
 
-speak("test complete")
+speak("complete")
 
 me.center()
