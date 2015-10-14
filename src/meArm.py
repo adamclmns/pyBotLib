@@ -16,21 +16,29 @@ class meArm():
 	def __init__(self,host):
 		self.host = host
 		self.clawOpen=True
+		#not used yet... 
+		self.positions=[[0,0],[1,90],[2,90],[3,90]]
+		#Leaving old position tracking for backwards compatiblity while i make the change
 		self.MS = [1,90]
 		self.RS = [2,90]
 		self.LS = [3,90]
 
 	def set(self, arg):
 		self.host.move(arg[0],arg[1])
+		self.positions[arg[0]]=arg
 		time.sleep(0.125)
 	
 	def rotateLeft(self, delta):
-		self.MS[1]+=delta;
-		self.set(self.MS)
+		steps=delta / 4
+		for i in range(0,steps):
+			self.MS[1]+=4
+			self.set(self.MS)
 		
 	def rotateRight(self, delta):
-		self.MS[1]-=delta;
-		self.set(self.MS)
+		steps=delta / 4
+		for i in range(0,steps):
+			self.MS[1]-=4;
+			self.set(self.MS)
 	
 	#mapping the arms.
 	def rightBack(self, delta):
@@ -86,14 +94,14 @@ class meArm():
 	def forward(self, delta):
 	    steps=delta / 4
 	    for i in range(0,steps):
-	        self.out1(4)
+	        self.leftDwn(4)
 	        time.sleep(0.01)
 	        self.rightFwd(4)
 	
 	def backward(self, delta):
 	    steps = delta / 4
 	    for i in range(0,steps):
-	        self.in1(4)
+	        self.leftUp(4)
 	        time.sleep(0.01)
 	        self.rightBack(4)
 	
@@ -107,7 +115,7 @@ class meArm():
 	    for i in range(0,steps):
 	        self.rightBack(4)
 	        time.sleep(0.01)
-	        self.out1(4)
+	        self.leftUp(4)
 	        time.sleep(0.01)
 	
 	def lower(self, delta):
@@ -115,7 +123,7 @@ class meArm():
 	    for i in range(0,steps):
 	        self.rightFwd(4)
 	        time.sleep(0.01)
-	        self.in1(4)
+	        self.leftUp(4)
 	        time.sleep(0.01)
 	        
 	def grotate(self, delta):
