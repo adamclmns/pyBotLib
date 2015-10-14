@@ -16,7 +16,6 @@ and Energia Sketch (for MSP430) "MultipleSerialServoControl"
 
 import serial
 import time
-import curses
 
 
 class ServoController():
