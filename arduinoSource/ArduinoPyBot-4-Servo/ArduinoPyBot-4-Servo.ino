@@ -28,6 +28,8 @@ void setup() {
   servo2.attach(10);  
   servo3.attach(9);  
   servo4.attach(8);  
+
+  servo4.write(140);
   Serial.begin(9600);
 }
 
@@ -44,6 +46,9 @@ void loop() {
       servo1.write(servo1Pos);
       servo2.write(servo2Pos);
       servo3.write(servo3Pos);
+      if (servo4Pos < 140){
+        servo4Pos = 140;
+      }
       servo4.write(servo4Pos);
     }
   }
