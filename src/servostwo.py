@@ -7,10 +7,11 @@ class ServoHost():
         self.servoHost = serial.Serial(serialPort, 9600, timeout=1)
         self.positions = [90,90,90,90]
 
-    def moveFor(self, positionSet):
+    def setPositions(self, positionSet):
+        outputString = ""
         for angle in positionSet:
+            outputString += str(angle)
+            outputString+=","
+        outputString += "255"
+        self.servoHost.write(outputString)
             
-
-    def moveOther(self, positionSet):
-        self.servoHost.write((str(self.positions[0])+","+str(self.positions[1])+","+str(self.positions[2])+","+str(self.positions[3])+"x"))
-        
