@@ -1,8 +1,12 @@
 #Test.py
+# Adam Clemons 10-21-2015 - Using to test pyBot lib. This file is always changing,
+# and should not be used in any implementation
 
-import servos
+
 import time
+
 import meArm
+
 print("import successful")
 
 

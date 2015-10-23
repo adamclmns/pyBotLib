@@ -50,7 +50,7 @@ void setup() {
   servo3.write(servo3Pos);
   servo4.write(servo4Pos);
     
-  Serial.begin(115200);
+  Serial.begin(9600);
   //Getting the XBox Controller
   #if !defined(__MIPSEL__)
   while (!Serial); // Wait for serial port to connect - used on Leonardo, Teensy and other boards with built-in USB CDC serial connection
@@ -68,53 +68,68 @@ void claw(){
   }else if(servo4Pos == 180){
     servo4Pos = 140;
   }
-  servo4.write(servo4Pos);
+  
 }
 
 void rotateLeft(){
   if(servo1Pos < 180){
     servo1Pos++;
   }
-  servo1.write(servo1Pos);
+  
 }
 
 void rotateRight(){
   if(servo1Pos > 1){
     servo1Pos--;
   }
-  servo1.write(servo1Pos);
+  
 }
 
 void rightUp(){
   if(servo3Pos < 180){
     servo3Pos++;
   }
-  servo3.write(servo3Pos);
+  
 }
 
 void rightDown(){
   if(servo3Pos > 1){
     servo3Pos--;
   }
-  servo3.write(servo3Pos);
+  
 }
 
 void leftUp(){
    if(servo2Pos < 180){
     servo2Pos++;
   }
-  servo2.write(servo2Pos);
+  
 }
 
 void leftDown(){
   if(servo2Pos > 1){
     servo2Pos--;
   }
-  servo2.write(servo2Pos);
+  
 }
 
 void loop() {
-  Usb.Task();
+ //Reading serial data for position
+ while (Serial.available() > 0) {
+    servo1Pos = Serial.parseInt();
+    servo2Pos = Serial.parseInt();
+    servo3Pos = Serial.parseInt();
+    servo4Pos = Serial.parseInt();
+
+    if (Serial.read() == 'x') {
+         servo1.write(servo1Pos);
+         servo2.write(servo2Pos);
+         servo3.write(servo3Pos);
+         servo4.write(servo4Pos);
+    }
+ }
+ //Reading USB State for position Data
+ Usb.Task();
    if (Xbox.Xbox360Connected) {
       if (Xbox.getAnalogHat(LeftHatX) > 9000 || Xbox.getAnalogHat(LeftHatX) < -9000) {
         if(Xbox.getAnalogHat(LeftHatX) > 9000){
@@ -155,5 +170,11 @@ void loop() {
    
   }
   delay(5);
+  //Writing positions now that all the input is gathered up
+  //This might avoid some power issues with Servos and USB going at same time
+  servo1.write(servo1Pos);
+  servo2.write(servo2Pos);
+  servo3.write(servo3Pos);
+  servo4.write(servo4Pos);
  
 }

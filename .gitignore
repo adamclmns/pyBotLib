@@ -1,3 +1,11 @@
 *.pyc
 arduinoSource/MeArmControl/MeArmControl.ino
 arduinoSource/MultipleSerialServoControl/MultipleSerialServoControl.ino
+*.iml
+.idea/misc.xml
+*.name
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.pydevproject
+.project
